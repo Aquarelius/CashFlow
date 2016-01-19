@@ -1,0 +1,6 @@
+﻿var cf = {
+    init: function() {
+        
+    }
+
+};
