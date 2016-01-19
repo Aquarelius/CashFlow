@@ -8,9 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/cashFlow")
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(cf.init);
-    </script>
+   @RenderSection("scrtips")
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
