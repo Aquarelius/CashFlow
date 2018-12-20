@@ -1,0 +1,23 @@
+﻿@using CashFlow.BusinessLogic.Helpers
+@using CashFlow.Domain.Models
+@model CfUser
+@{
+    CfUser user = null;
+    if (Model == null)
+    {
+        var helper = DependencyResolver.Current.GetService<UsersHelper>();
+        user = helper.GetCurrentUser();
+    }
+    else
+    {
+        user = Model;
+    }
+}
+<div class="row">
+    <div class="cf-center" style="margin-bottom: 5px;">
+        <img src="@user.Avatar" width="30" height="30" />
+    </div>
+    <div class="cf-center cf-label">
+        @user.NickName
+    </div>
+</div>

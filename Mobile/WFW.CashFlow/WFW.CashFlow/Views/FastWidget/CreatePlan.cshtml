@@ -1,0 +1,65 @@
+﻿@model WFW.CashFlow.Models.CreatePlanModel
+
+@{
+    ViewBag.Title = "CreatePlan";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+@section Scripts{
+
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#tbStart").datetimepicker({
+                locale: "ru",
+                format: "L"
+            });
+            $("#tbEnd").datetimepicker({
+                locale: "ru",
+                format: "L"
+            });
+        });
+    </script>
+}
+<h2>Создать план</h2>
+<div class="cf-label">Текущий часовой пояс</div>
+<div>@Model.TimeZone.DisplayName</div>
+@using (Html.BeginForm("CreatePlan", "FastWidget", FormMethod.Post))
+{
+    <div class="row cf-newrow">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 cf-label cf-left">
+            Первый день
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 cf-label cf-left">
+            Последний день
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            @Html.TextBoxFor(z => z.StartDate, new { @class = "cf-fill form-control cf-center", @id = "tbStart" })
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            @Html.TextBoxFor(z => z.EndDate, new { @class = "cf-fill form-control cf-center", @id = "tbEnd" })
+        </div>
+    </div>
+
+    <div class="row cf-newrow">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cf-label cf-left">Лимит</div>
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            @Html.TextBoxFor(z => z.Amount, new { @class = "cf-fill  form-control cf-right" })
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cf-left" style='font-size: 18pt; font-family: Arial;'>
+            @Model.BaseCurrency.Code
+        </div>
+    </div>
+    <div class="row cf-newrow cf-center">
+        <button type="submit" class="btn btn-primary">Создать</button>
+        <a href="@Url.Action("Index")" class="btn btn-default">Отмена</a>
+    </div>
+    <div class="cf-center cf-error cf-newrow">
+        @ViewBag.Error
+    </div>
+    <div class="cf-center cf-success cf-newrow">
+        @ViewBag.Success
+    </div>
+}

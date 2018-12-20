@@ -1,0 +1,180 @@
+﻿@model CashFlow.Domain.Models.PlanState
+
+@{
+    ViewBag.Title = "Current state";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+@section Scripts
+{
+    <script type="text/javascript" language="javascript">
+        var mainGauge;
+        function Guage(limit, current) {
+            var opts = {
+                angle: -0.15, // The span of the gauge arc
+                lineWidth: 0.1, // The line thickness
+                radiusScale: 0.75, // Relative radius
+                pointer: {
+                    length: 0.62, // // Relative to gauge radius
+                    strokeWidth: 0.035, // The thickness
+                    color: '#000000' // Fill color
+                },
+                limitMax: false,     // If false, max value increases automatically if value > maxValue
+                limitMin: false,     // If true, the min value of the gauge will be fixed
+                colorStart: '#6FADCF',   // Colors
+                colorStop: '#8FC0DA',    // just experiment with them
+                strokeColor: '#E0E0E0',  // to see which ones work best for you
+                generateGradient: false,
+                highDpiSupport: true,     // High resolution support
+                percentColors: [[0.0, "#ff0000"], [0.4, "#f9c802"], [0.50, "#a9d70b"], [1.0, "#a9d70b"]],
+                staticLabels: {
+                    font: "14px sans-serif",  // Specifies font
+                    labels: [-1 * limit, -1 * (limit / 2), 0, (limit / 2), limit],  // Print labels at these values
+                    color: "#000000",  // Optional: Label text color
+                    fractionDigits: 0  // Optional: Numerical precision. 0=round off.
+                }
+            };
+            var target = document.getElementById('select-1'); // your canvas element
+            mainGauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+            mainGauge.maxValue = limit; // set max gauge value
+            mainGauge.setMinValue(-1 * limit);  // Prefer setter over gauge.minValue = 0
+            mainGauge.animationSpeed = 32; // set animation speed (32 is default value)
+            mainGauge.set(current); // set actual value
+        }
+    </script>
+}
+
+
+<div ng-app="cashFlow" ng-controller="planState">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
+            <div class="btn-group">
+
+                <a href="#" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="glyphicon glyphicon-option-vertical"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <div class="container-fluid" style="width: 300px;">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 cf-center">
+                                <a href="@Url.Action("Transactions")" class="cf-menu-btn">
+                                    <i class="glyphicon glyphicon-usd"></i>
+                                    <div>Транзакции</div>
+                                </a>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 cf-center">
+
+                                <a class="cf-menu-btn" href="@Url.Action("UpdateRate")" class="cf-menu-btn">
+                                    <i class="glyphicon glyphicon-refresh"></i>
+                                    <div>Обновить курс валют</div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 cf-center">
+                                <a class="cf-menu-btn" href="@Url.Action("CreatePlan")" class="cf-menu-btn">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    <div>Создать план</div>
+                                </a>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 cf-center">
+
+                                <a class="cf-menu-btn" href="@Url.Action("Calendars")">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                    <div>Синхронизировать<br />с календарями</div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 cf-center">
+                                <a class="cf-menu-btn" href="@Url.Action("CreatePlan")" class="cf-menu-btn">
+                                    <i class="glyphicon glyphicon-credit-card"></i>
+                                    <div>Снятие наличных</div>
+                                </a>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 cf-center">
+
+                                @*<a class="cf-menu-btn" href="@Url.Action("Calendars")">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                    <div>Синхронизировать<br />с календарями</div>
+                                </a>*@
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top: 20px">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cf-right">
+                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+                                   <button class="btn btn-sm btn-danger" type="submit">Выход</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href='@Url.Action("Register")' class="btn btn-primary" style="width: 140px">Записать расход</a>
+
+            </div>
+
+        </div>
+
+        <div ng-show="!loading" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 cf-dates">
+            {{utils.ToShortDateString(planState.StartDate)}}&nbsp;-&nbsp;{{utils.ToShortDateString(planState.EndDate)}}
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            @Html.Partial("CurrentUser")
+        </div>
+    </div>
+    <div ng-show="loading" style="text-align: center; margin-top: 100px;">
+        LOADING...
+    </div>
+    <div class="row center-block" style="text-align: center;">
+        <canvas width="350" height="350" id="select-1"></canvas>
+    </div>
+
+    <div ng-show="!loading" class="row" style="text-align: center;">
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cf-total-sum {{utils.TotalColorClass(planState.PlannedSpend - planState.PlanSpent )}}">
+            {{ utils.ToMoneyString( planState.PlannedSpend - planState.PlanSpent )}} {{planState.Currency}}
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cf-second-currency cf-center" ng-show="useSecondCur">
+            {{utils.ToMoneyString(secondCur.MainState)}} {{secondCur.Code}}
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 cf-label">
+            Весь период
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 cf-label">
+            Сегодня
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div>
+                {{ utils.ToMoneyString( planState.PlanSpent)}} / {{utils.ToMoneyString(planState.PlanLimit)}} {{planState.Currency}}
+            </div>
+            <div class="cf-progress" style="width: 90%">
+                <div class="cf-progress-bar {{utils.ProgressColorClass(planState.PlanPercentage)}}" style="width: {{utils.ToPercentageForProgressBar( planState.PlanPercentage)}}%"></div>
+            </div>
+            <div>
+                ({{ utils.ToPercentageString( planState.PlanPercentage)}})
+            </div>
+            <div class="cf-second-currency cf-center" ng-show="useSecondCur">
+                Осталось: {{utils.ToMoneyString(secondCur.LeftPlan)}} {{secondCur.Code}}
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div>
+                {{ utils.ToMoneyString( planState.DaySpent)}} / {{utils.ToMoneyString(planState.DayLimit)}} {{planState.Currency}}
+            </div>
+            <div class="cf-progress" style="width: 90%">
+                <div class="cf-progress-bar {{utils.ProgressColorClass(planState.DayPercentage)}}" style="width: {{utils.ToPercentageForProgressBar( planState.DayPercentage)}}%"></div>
+            </div>
+            <div>
+                ({{ utils.ToPercentageString( planState.DayPercentage)}})
+            </div>
+            <div class="cf-second-currency cf-center" ng-show="useSecondCur">
+                Осталось: {{utils.ToMoneyString(secondCur.LeftDay)}} {{secondCur.Code}}
+            </div>
+        </div>
+    </div>
+
+</div>

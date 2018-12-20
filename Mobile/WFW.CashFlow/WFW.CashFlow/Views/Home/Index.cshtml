@@ -1,0 +1,12 @@
+﻿@model WFW.CashFlow.Models.HomePageModel
+@{
+    ViewBag.Title = "CashFlow";
+    Layout = "~/Views/Shared/_layout.cshtml";
+
+}
+
+<h2>Index</h2>
+@foreach (var cur in Model.Currencies)
+{
+    <div>@cur</div>
+}

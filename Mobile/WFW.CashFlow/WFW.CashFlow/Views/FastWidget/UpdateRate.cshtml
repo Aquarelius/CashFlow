@@ -1,0 +1,32 @@
+﻿@model WFW.CashFlow.Models.UpdateRateModel
+
+@{
+    ViewBag.Title = "UpdateRate";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+<h2>Обновить курс валюты</h2>
+
+@using (Html.BeginForm("UpdateRate", "FastWidget", FormMethod.Post))
+{
+    <div class="cf-newrow">
+        @Html.TextBoxFor(z => z.CurrencyCode, new { @class = "form-control cf-center" })
+    </div>
+    <div class="cf-newrow">
+        <button type="submit" class="btn btn-primary">Обновить</button>
+        <a href="@Url.Action("Index")" class="btn btn-default">Отмена</a>
+    </div>
+    if (Model.Done.HasValue)
+    {
+        if (Model.Done == true)
+        {
+            <div class="cf-success">@Model.RateString</div>
+        }
+        else
+        {
+            <div class="cf-newrow cf-error"> Не удалось обновить курс для  @Model.CurrencyCode</div>        
+        }
+    }
+    
+    
+}

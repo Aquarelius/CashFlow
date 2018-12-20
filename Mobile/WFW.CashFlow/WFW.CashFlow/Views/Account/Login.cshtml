@@ -1,0 +1,68 @@
+﻿@using System.Web.Optimization
+@using WFW.CashFlow.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Ты кто?";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+<div class="row cf-center" ng-app="cashFlow" ng-controller="login">
+    <div class="col-md-12">
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="cf-center">
+                    @if (Model != null)
+                    {
+                        foreach (var user in Model.Users)
+                        {
+                            <div class="cf-login-btn" ref="@user.Email" ng-click="setEmail('@user.Email')">
+                                <img style="width: 75px;" src="@user.Avatar"/>
+                                <div>
+                                    @user.NickName
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+                
+                <div class="cf-dates">{{email}}</div>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div style="display: none">@Html.TextBoxFor(model => model.Email, new { @ng_model = "email" })</div>
+              
+                <div class="form-group">
+
+                    <div class="col-md-offset-1 col-md-10">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control cf-center" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(m => m.RememberMe)
+                            @Html.LabelFor(m => m.RememberMe)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <input type="submit" value="Log in" class="btn btn-primary cf-fill" ng-disabled="{!(email)}" />
+                    </div>
+                </div>
+
+                @* Enable this once you have account confirmation enabled for password reset functionality
+                    <p>
+                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                    </p>*@
+            }
+        </section>
+    </div>
+
+</div>
+

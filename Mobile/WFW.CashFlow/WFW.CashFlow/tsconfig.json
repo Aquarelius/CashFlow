@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "classic",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "rootDir": "App",
+    "outDir": "Scripts/app"
+  },
+  "compileOnSave": true,
+  "angularCompilerOptions": {
+    "genDir": ".",
+    "debug": true
+  },
+  "exclude": [
+    "Scripts/typings"
+  ]
+}

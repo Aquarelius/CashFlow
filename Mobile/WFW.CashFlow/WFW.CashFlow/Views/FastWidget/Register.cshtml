@@ -1,0 +1,51 @@
+﻿@model WFW.CashFlow.Models.RegisterСonsumptionModel
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+
+<div class="center-block" style="margin-top: 20px; margin-bottom: 20px;">
+    @if (ViewBag.Done != null)
+    {
+        if (ViewBag.Done)
+        {
+            <p class="text-success">Добавлено!</p>
+        }
+        else
+        {
+            <p class="text-danger">Не удалось добавить запись!</p>
+        }
+    }
+</div>
+<div ng-app="cashFlow" ng-controller="register">
+    @using (Html.BeginForm("Register", "FastWidget", FormMethod.Post))
+    {
+        <div>
+            @Html.TextBoxFor(model => model.Amount, new { @class = "cf-register-amount form-control cf-center", @autocomplete = "off" })
+        </div>
+        <div class="btn-group row cf-newrow">
+            @foreach (string cur in ViewBag.Currencies)
+            {
+                <button type="button" ng-class="[{'btn btn-default':current !='@cur'},
+                        {'btn btn-primary':current =='@cur'}]"
+                        ng-click="current ='@cur'">
+                    @cur
+                </button>
+            }
+        </div>
+        <div style="display: none;">
+            @Html.TextBoxFor(model => model.Currency, new { @id = "hfCurrency", @ng_model = "current", @ng_init = "current ='" + Model.Currency + "'" })
+        </div>
+        <div class="cf-newrow">
+            @Html.TextAreaFor(model => model.Description, new { @class = "cf-description form-control" })
+        </div>
+        <div class="cf-newrow">
+            <button class="btn btn-primary" type="submit">Добавить</button>
+        </div>
+    }
+    <div class="cf-newrow">
+        @Html.ActionLink("Назад", (string)ViewBag.BackLink)
+    </div>
+</div>

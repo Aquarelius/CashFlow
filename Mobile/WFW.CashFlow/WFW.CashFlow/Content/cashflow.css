@@ -1,0 +1,160 @@
+﻿html {
+    min-height: 100%;
+}
+
+body {
+    background-color: #f9f9f9;
+    text-align: center;
+    min-height: 100%;
+}
+
+.cf-left {
+    text-align: left;
+}
+
+.cf-center {
+    text-align: center;
+}
+
+.cf-right {
+    text-align: right;
+}
+
+.cf-fill {
+    width: 100%;
+}
+
+.cf-newrow {
+    margin-top: 20px;
+}
+
+.cf-error {
+    color: red;
+}
+
+.cf-success {
+    color: green;
+}
+
+.cf-canvas {
+    width: 450px;
+    padding: 10px 10px;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    border-left: 1px solid #a9a9a9;
+    border-right: 1px solid #a9a9a9;
+    min-height: 100%;
+    height: 100%;
+    -webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,0.75);
+    -moz-box-shadow: 0 0 10px 0 rgba(0,0,0,0.75);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.75);
+}
+
+.cf-dates {
+    font-family: Georgia, Times, "Times New Roman", serif;
+    font-size: 24px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 26.4px;
+    text-align: center;
+}
+
+.cf-menu-btn {
+    padding: 10px;
+    color: #a9a9a9;
+    display: block;
+    text-align: center;
+        
+}
+
+    .cf-menu-btn i {
+        font-size: 32pt;
+    }
+
+    .cf-menu-btn div {
+        font-size: 10pt;
+    }
+
+.cf-progress {
+    width: 100%;
+    height: 5px;
+    background-color: #F5F5F5;
+    border-radius: 2px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+}
+
+.cf-progress-bar {
+    transition: width 0.5s linear;
+    height: 100%;
+    background-color: #337AB7;
+    border-radius: 5px;
+}
+
+.cf-progress-good {
+    background-color: #33cc33;
+}
+
+.cf-progress-bad {
+    background-color: #ff3300;
+}
+
+.cf-total-sum {
+    font-family: Georgia, Times, "Times New Roman", serif;
+    font-size: 32px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 26.4px;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.cf-total-good {
+    color: #248f24;
+}
+
+.cf-total-bad {
+    color: #cc2900;
+}
+
+.cf-time-small {
+    color: #696969;
+}
+
+.cf-sum-small {
+    text-align: center;
+}
+
+.cf-description {
+    width: 100%;
+    height: 100px;
+}
+
+.cf-register-amount {
+    width: 100%;
+}
+
+.cf-label {
+    color: #a9a9a9;
+    font-size: 10pt;
+}
+
+.cf-second-currency {
+    color: #666666;
+    font-size: 10pt;
+}
+.cf-login-btn {
+    padding-bottom: 20px;
+    margin-right: 20px;
+    min-width: 50px;
+    display: inline-table
+}
+.cf-login-btn div {
+    font-family: Georgia, Times, "Times New Roman", serif;
+    font-size: 12pt;
+    margin-top: 5px;
+    font-style: normal;
+    font-variant: normal;
+}

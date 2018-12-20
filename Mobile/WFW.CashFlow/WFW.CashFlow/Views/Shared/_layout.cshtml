@@ -1,0 +1,36 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=.75">
+    <title>Cashflow - @ViewBag.Title</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/ui-bootstrap-csp.css" rel="stylesheet" />
+
+    <link href="~/Content/cashflow.css" rel="stylesheet" />
+
+    @RenderSection("Styles", false)
+
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/gauge.min.js"></script>
+    <script src="~/Scripts/angular.js" type="text/javascript"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/app/ng.app.js"></script>
+    <script src="~/Scripts/app/utils.js"></script>
+    @RenderSection("Scripts", false)
+
+</head>
+<body>
+    <div class="cf-canvas">
+        @RenderBody()
+    </div>
+</body>
+</html>
